@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState} from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from './components/Layout';
+import HomeComponent from './components/home-component'
+import RegisterComponent from "./components/register-component";
+import LoginComponent from "./components/login-component";
+import ProfileComponent from "./components/profile-component";
+import AuthService from "./services/auth.service";
 
 function App() {
+  let [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser())
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout currentUser={currentUser} setCurrentUser={setCurrentUser}/>}>
+          <Route index element={<HomeComponent />}></Route>
+          <Route path="register" element={<RegisterComponent />}></Route>
+          <Route path="login" element={<LoginComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/>}></Route>
+          <Route path="profile" element={<ProfileComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/>}></Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
 export default App;
