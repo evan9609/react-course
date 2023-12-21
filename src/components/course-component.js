@@ -70,8 +70,8 @@ export default function CourseComponent({currentUser, setCurrentUser}){
             {courseData.length ? (
                 <div style={{display: 'flex',flexWrap: 'wrap'}}>
                   {
-                    courseData.map(course =>(
-                      <div className='card' style={{width: '18rem',margin: '1rem'}}>
+                    courseData.map((course,index) =>(
+                      <div key={index} className='card' style={{width: '18rem',margin: '1rem'}}>
                         <div className='card-body'>
                           <h5 className='card-title'>課程名稱:{course.title}</h5>
                           <p style={{margin: '0.5rem 0rem'}} className='card-text'>{course.description}</p>

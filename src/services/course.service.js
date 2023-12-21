@@ -30,7 +30,31 @@ class CourseService {
         Authorization: this.token,
       }
     })
-
+  }
+  // 用課程名稱尋找課程
+  search(name){
+    this.tokenUpdate();
+    if(name){
+      return axios.get(API_URL + '/findByName/' + name,{
+        headers: {
+          Authorization: this.token,
+        }
+      })
+    }else{
+      return axios.get(API_URL ,{
+        headers: {
+          Authorization: this.token,
+        }
+      })
+    }
+  }
+  enroll(id){
+    this.tokenUpdate();
+    return axios.post(API_URL + '/enroll/' + id,{},{
+      headers: {
+        Authorization: this.token,
+      }
+    })
   }
 }
 
