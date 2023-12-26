@@ -9,17 +9,16 @@ import CourseComponent from "./components/course-component";
 import AuthService from "./services/auth.service";
 import PostCourseComponent from "./components/postCourse-component";
 import EnrollComponent from "./components/enroll-component";
-import Loading from "./components/Loading";
 
 function App() {
   let [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser())
-  let [loading, setLoading] = useState(true);
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 3300)
-  }, [])
-  if (loading) {
-      return <Loading/>
-  }
+  // let [loading, setLoading] = useState(true);
+  // useEffect(() => {
+  //   setTimeout(() => setLoading(false), 3300)
+  // }, [])
+  // if (loading) {
+  //     return <Loading/>
+  // }
   return (
     <BrowserRouter>
       <Routes>

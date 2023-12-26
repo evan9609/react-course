@@ -8,25 +8,30 @@ export default function CourseComponent({currentUser, setCurrentUser}){
     navigate('/login')
   }
   const [ courseData, setCourseData ] = useState([])
+  const [ loading, setLoading] = useState(false)
   useEffect(()=>{
     let _id;
-    console.log(CourseService)
     if(currentUser){
+      setLoading(true);
       _id = currentUser.user._id;
       if(currentUser.user.role === 'instructor'){
         CourseService.get(_id)
         .then((data)=>{
           setCourseData(data.data)
+          setLoading(false)
         })
         .catch((e)=>{
           console.log(e)
+          setLoading(false)
         })
       }else if(currentUser.user.role === 'student'){
         CourseService.getEnrolledCourses(_id).then((data)=>{
           setCourseData(data.data)
           console.log(data.data)
+          setLoading(false)
         }).catch((e)=>{
           console.log(e)
+          setLoading(false)
         })
       }
     }
@@ -42,6 +47,11 @@ export default function CourseComponent({currentUser, setCurrentUser}){
 
         </div>
       )}
+      {
+        loading && (
+          <div style={{display: 'fixed',width: '100vw', height: '100vh',backgroundColor: 'rgba(0,0,0,.5)',color: '#fff',top: '0',left: '0'}}>Load...</div>
+        )
+      }
       {
         currentUser.user.role === 'instructor' && (
           <>
